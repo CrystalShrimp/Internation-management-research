@@ -177,4 +177,32 @@ Using the exact data designated by the course — G-SWA for remote work, the Git
 
 ## Appendix B. Reproduction
 
-`scripts/` in order: 01 World Bank API; 02 G-SWA published tables (audit); 03 WGI/Hofstede/Eurostat/CEPII; 04–09 interim panels (superseded); 10 G-SWA microdata → country×wave; 11 EWCS → country telework; 12 Panels A/B; 13 v2 regressions; 14 EWCS EU; 15 figures. Estimation: pyfixest (feols/fepois). All raw files in `data/raw/`, built panels in `data/processed/`, tables and figures in `output/` and `paper/figures/`.
+`scripts/` in order: 01 World Bank API; 02 G-SWA published tables (audit); 03 WGI/Hofstede/Eurostat/CEPII; 04–09 interim panels (superseded); 10 G-SWA microdata → country×wave; 11 EWCS → country telework; 12 Panels A/B; 13 v2 regressions; 14 EWCS EU; 15–16 figures. Estimation: pyfixest (feols/fepois). All raw files in `data/raw/`, built panels in `data/processed/`, tables and figures in `output/` and `paper/figures/`.
+
+## Appendix C. The six Hofstede dimensions and the cultural-distance measure
+
+The moderator is built from the six Hofstede dimensions (0–100 scale; geerthofstede.com dimension-data-matrix). Table C1 shows the scores for the Panel A economies; Figure C1 visualises them as z-scores against the full reference sample.
+
+**Table C1 — Hofstede dimension scores, Panel A economies**
+
+| Country | PDI | IDV | MAS | UAI | LTO | IVR |
+|---|---|---|---|---|---|---|
+| Australia | 38 | 90 | 61 | 51 | 21 | 71 |
+| China | 80 | 20 | 66 | 30 | 87 | 24 |
+| France | 68 | 71 | 43 | 86 | 63 | 48 |
+| Germany | 35 | 67 | 66 | 65 | 83 | 40 |
+| Greece | 60 | 35 | 57 | 100 | 45 | 50 |
+| Hungary | 46 | 80 | 88 | 82 | 58 | 31 |
+| Netherlands | 38 | 80 | 14 | 53 | 67 | 68 |
+| Poland | 68 | 60 | 64 | 93 | 38 | 29 |
+| Sweden | 31 | 71 | 5 | 29 | 53 | 78 |
+| United Kingdom | 35 | 89 | 66 | 35 | 51 | 69 |
+| United States | 40 | 91 | 62 | 46 | 26 | 68 |
+
+*PDI = power distance; IDV = individualism; MAS = masculinity (achievement orientation); UAI = uncertainty avoidance; LTO = long-term orientation; IVR = indulgence.*
+
+Bilateral cultural distance aggregates the six dimensions via Kogut–Singh (1988): KS_ij = (1/6)Σ_d[(I_id−I_jd)/V_d]², with V_d the variance of dimension d across all countries with data (full reference sample, not the estimation sample). Illustrative values on this scale: UK–USA 0.25, Germany–France 0.95, Sweden–USA 2.07, USA–China 3.92 — the distance distribution spans roughly an order of magnitude within the sample.
+
+![Hofstede dimensions](figures/fig_hofstede_dims.png)
+
+*Figure C1.* Hofstede dimension scores for the Panel A economies (0–100; colour = z-score vs. full reference sample).

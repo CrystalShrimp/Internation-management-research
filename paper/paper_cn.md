@@ -177,4 +177,32 @@ ln(1+Collab_ijt) = β₁Remote_it + β₂Remote_jt + β₃(Remote_ijt × DistCul
 
 ## 附录 B. 复现说明
 
-`scripts/` 按序执行:01 世界银行 API;02 G-SWA 发表表(审计用);03 WGI/Hofstede/Eurostat/CEPII;04–09 过渡面板(已被替代);10 G-SWA 微观 → 国家×波次;11 EWCS → 国家 telework;12 Panel A/B;13 v2 回归;14 EWCS 欧盟;15 图形。估计:pyfixest(feols/fepois)。原始文件在 `data/raw/`,构建面板在 `data/processed/`,表格与图形在 `output/` 与 `paper/figures/`。
+`scripts/` 按序执行:01 世界银行 API;02 G-SWA 发表表(审计用);03 WGI/Hofstede/Eurostat/CEPII;04–09 过渡面板(已被替代);10 G-SWA 微观 → 国家×波次;11 EWCS → 国家 telework;12 Panel A/B;13 v2 回归;14 EWCS 欧盟;15–16 图形。估计:pyfixest(feols/fepois)。原始文件在 `data/raw/`,构建面板在 `data/processed/`,表格与图形在 `output/` 与 `paper/figures/`。
+
+## 附录 C. Hofstede 六维度与文化距离的构建
+
+调节变量基于 Hofstede 六个文化维度构建(0–100 分;来源:geerthofstede.com 维度数据矩阵)。表 C1 给出 Panel A 各经济体的维度得分,图 C1 以相对全部参照样本的 z 分数呈现。
+
+**表 C1 — Hofstede 维度得分(Panel A 经济体)**
+
+| 国家 | PDI | IDV | MAS | UAI | LTO | IVR |
+|---|---|---|---|---|---|---|
+| 澳大利亚 | 38 | 90 | 61 | 51 | 21 | 71 |
+| 中国 | 80 | 20 | 66 | 30 | 87 | 24 |
+| 法国 | 68 | 71 | 43 | 86 | 63 | 48 |
+| 德国 | 35 | 67 | 66 | 65 | 83 | 40 |
+| 希腊 | 60 | 35 | 57 | 100 | 45 | 50 |
+| 匈牙利 | 46 | 80 | 88 | 82 | 58 | 31 |
+| 荷兰 | 38 | 80 | 14 | 53 | 67 | 68 |
+| 波兰 | 68 | 60 | 64 | 93 | 38 | 29 |
+| 瑞典 | 31 | 71 | 5 | 29 | 53 | 78 |
+| 英国 | 35 | 89 | 66 | 35 | 51 | 69 |
+| 美国 | 40 | 91 | 62 | 46 | 26 | 68 |
+
+*PDI = 权力距离;IDV = 个人主义;MAS = 男性化/成就导向;UAI = 不确定性规避;LTO = 长期导向;IVR = 放纵。*
+
+双边文化距离按 Kogut–Singh (1988) 将六个维度聚合:KS_ij = (1/6)Σ_d[(I_id−I_jd)/V_d]²,其中 V_d 为维度 d 在**全部有数据国家**(参照样本,而非估计样本)上的方差。样本内的示例取值:英–美 0.25、德–法 0.95、瑞典–美 2.07、美–中 3.92——样本内距离分布跨越约一个数量级。
+
+![Hofstede 维度](figures/fig_hofstede_dims.png)
+
+*图 C1.* Panel A 经济体的 Hofstede 维度得分(0–100;颜色为相对全部参照样本的 z 分数)。
