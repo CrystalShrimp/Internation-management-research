@@ -1,6 +1,6 @@
 """Parse G-SWA microdata (user-registered download) into country x wave aggregates.
 
-STEP 1 (discovery): run this as-is with files in data/raw/gswa_micro/ -- it prints
+STEP 1 (discovery): run this as-is with files in data/raw/remote_work/wfh_w1w2_micro_gswa/ -- it prints
 the schema of every file so the variable mapping below can be finalised.
 STEP 2: fill VARIABLE_MAP with the real column names, then rerun to produce
 data/processed/gswa_micro_country_wave.csv
@@ -11,7 +11,7 @@ from pathlib import Path
 import pandas as pd
 import numpy as np
 
-MICRO_DIR = Path("data/raw/gswa_micro")
+MICRO_DIR = Path("data/raw/remote_work/wfh_w1w2_micro_gswa")
 OUT = Path("data/processed/gswa_micro_country_wave.csv")
 
 NAME_TO_ISO3 = {
@@ -95,8 +95,17 @@ def discover():
 
 def build(frames):
     rows = []
+    seen = set()
     for f, df in frames.items():
-        cmap = {c.lower(): c for c in df.columns}
+        needed = {v for v in VARIABLE_MAP.values() if v} - {"wave"}
+        if not needed <= set(df.columns):
+            print(f"  skip {f}: not a microdata file (missing mapped columns)")
+            continue
+        sig = (df.shape, tuple(df.columns[:8]))
+        if sig in seen:  # .dta and .xlsx of the same data
+            print(f"  skip {f}: duplicate of an already-loaded frame")
+            continue
+        seen.add(sig)
         c_country = VARIABLE_MAP["country"]
         c_wave = VARIABLE_MAP["wave"]
         if c_country is None:

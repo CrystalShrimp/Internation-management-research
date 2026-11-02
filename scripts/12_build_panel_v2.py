@@ -28,7 +28,7 @@ def country_wave_remote():
     micro = micro.rename(columns={"wfh_actual": "actual", "wfh_employer_plan": "plan",
                                   "wfh_worker_desire": "desire"})
     micro["wave"] = micro.wave.astype(int)
-    w3 = pd.read_csv("data/raw/gswa_w3.csv")[["iso3", "wfh_actual", "wfh_employer_plan",
+    w3 = pd.read_csv("data/processed/wfh_w3_gswa.csv")[["iso3", "wfh_actual", "wfh_employer_plan",
                                               "wfh_worker_desire"]]
     w3 = w3.rename(columns={"wfh_actual": "actual", "wfh_employer_plan": "plan",
                             "wfh_worker_desire": "desire"})
@@ -50,9 +50,9 @@ def build_panel(countries, quarters):
                                     "remote_desire": r.desire.iloc[0], "wave": w})
     remote = pd.DataFrame(remote_rows)
 
-    wbc = pd.read_csv("data/raw/wb_countries.csv")
+    wbc = pd.read_csv("data/raw/controls/country_codes_worldbank.csv")
     iso2_to_iso3 = dict(zip(wbc.iso2, wbc.iso3)) | {"XK": "XKX", "TW": "TWN"}
-    ec = pd.read_csv("data/raw/economy_collaborators.csv").dropna(subset=["source", "destination"])
+    ec = pd.read_csv("data/raw/dependent/collaborators_github.csv").dropna(subset=["source", "destination"])
     ec = ec[~ec.source.isin(["EU"]) & ~ec.destination.isin(["EU"])]
     ec["iso3_o"] = ec.source.map(iso2_to_iso3)
     ec["iso3_d"] = ec.destination.map(iso2_to_iso3)
@@ -64,9 +64,9 @@ def build_panel(countries, quarters):
     ec = ec.merge(qq, on=["year", "quarter"])
     ec = ec.rename(columns={"weight": "collaborators"})
 
-    dev = pd.read_csv("data/raw/developers.csv").dropna(subset=["iso2_code"])
+    dev = pd.read_csv("data/raw/controls/developers_github.csv").dropna(subset=["iso2_code"])
     dev["iso3"] = dev.iso2_code.map(iso2_to_iso3)
-    wdi = pd.read_csv("data/raw/worldbank_wgi_wdi.csv")
+    wdi = pd.read_csv("data/raw/controls/macro_wdi_worldbank.csv")
     wdi["ln_gdp"] = np.log(wdi.gdp_const2015usd)
     wdi["ln_gdppc"] = np.log(wdi.gdppc_const2015usd)
 
@@ -114,8 +114,8 @@ def build_panel(countries, quarters):
                                    for c, yy in zip(panel[f"iso3_{s}"], ctrl_year)]
 
     # distances: Kogut-Singh vs full reference sample
-    hof = pd.read_csv("data/raw/hofstede_clean.csv").set_index("iso3")
-    wgi = pd.read_csv("data/raw/wgi_clean.csv").set_index("iso3")
+    hof = pd.read_csv("data/processed/culture_dims_hofstede_iso3.csv").set_index("iso3")
+    wgi = pd.read_csv("data/processed/governance_wgi_clean.csv").set_index("iso3")
     zs_hof = (hof[HOF_DIMS] - hof[HOF_DIMS].mean()) / hof[HOF_DIMS].std(ddof=0)
     zs_wgi = (wgi[WGI_DIMS] - wgi[WGI_DIMS].mean()) / wgi[WGI_DIMS].std(ddof=0)
     drows = []
@@ -136,7 +136,7 @@ def build_panel(countries, quarters):
     dists["dist_z"] = dists[["cult_z", "inst_z"]].mean(axis=1)
     panel = panel.merge(dists, on=["iso3_o", "iso3_d"], how="left")
 
-    grav = pd.read_csv("data/raw/cepii_bilateral.csv")
+    grav = pd.read_csv("data/processed/gravity_cepii_bilateral.csv")
     panel = panel.merge(grav[["iso3_o", "iso3_d", "dist", "tzdiff", "comlang_off", "contig"]],
                         on=["iso3_o", "iso3_d"], how="left")
     panel["ln_dist"] = np.log(panel.dist)

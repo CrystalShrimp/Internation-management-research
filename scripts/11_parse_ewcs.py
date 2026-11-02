@@ -16,7 +16,7 @@ from pathlib import Path
 import pandas as pd
 import numpy as np
 
-DTA = Path("data/raw/ewcs/UKDA-9026-stata/stata/stata13/ewcts_2021_isco2_nace2_nuts2.dta")
+DTA = Path("data/raw/eu_robustness/telework_ewcs_ukds/UKDA-9026-stata/stata/stata13/ewcts_2021_isco2_nace2_nuts2.dta")
 
 # numeric Country code -> (iso2, iso3)
 COUNTRY = {

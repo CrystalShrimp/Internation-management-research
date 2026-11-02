@@ -57,8 +57,8 @@ def fig_trends(p):
     axes[0].set_ylabel("millions")
     axes[0].tick_params(axis="x", rotation=90, labelsize=6.5)
     # (b) remote work trend (country examples + mean)
-    w12 = pd.read_csv("data/raw/gswa_w1w2.csv").set_index("iso3")
-    w3 = pd.read_csv("data/raw/gswa_w3.csv").set_index("iso3")
+    w12 = pd.read_csv("data/raw/archive/wfh_w1w2_nber_table.csv").set_index("iso3")
+    w3 = pd.read_csv("data/processed/wfh_w3_gswa.csv").set_index("iso3")
     countries = ["USA", "GBR", "DEU", "JPN", "KOR", "IND"] if "IND" in w12.index else \
         ["USA", "GBR", "DEU", "JPN", "KOR", "CAN"]
     xs = list(range(len(agg)))

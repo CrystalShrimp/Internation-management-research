@@ -30,7 +30,7 @@ NAME_TO_ISO3 = {
 def parse_w12():
     """NBER w30446 Table A.2: pooled W1 (mid-2021) + W2 (early 2022) raw means."""
     rows = []
-    with pdfplumber.open("data/raw/nber_w30446.pdf") as pdf:
+    with pdfplumber.open("data/raw/archive/nber_w30446.pdf") as pdf:
         text = pdf.pages[57].extract_text()
     for line in text.split("\n"):
         parts = line.split()
@@ -52,14 +52,14 @@ def parse_w12():
                     "wfh_worker_desire": vals[3],
                 })
     df = pd.DataFrame(rows)
-    df.to_csv("data/raw/gswa_w1w2.csv", index=False)
+    df.to_csv("data/raw/archive/wfh_w1w2_nber_table.csv", index=False)
     print(f"W1W2: {len(df)} countries")
     return df
 
 
 def parse_w3():
     """GSWA-Figures-Data-2023.xlsx: Wave 3 fielded April-May 2023."""
-    wb = openpyxl.load_workbook("data/raw/gswa_2023.xlsx", read_only=True, data_only=True)
+    wb = openpyxl.load_workbook("data/raw/remote_work/wfh_w3_summary_gswa.xlsx", read_only=True, data_only=True)
     out = {}
     for sheet, col in [("Figure 1", "wfh_actual"), ("Figure 4", "wfh_employer_plan"),
                        ("Figure 3", "wfh_worker_desire")]:
@@ -73,7 +73,7 @@ def parse_w3():
                 out.setdefault(iso3, {"country": str(name).strip(), "iso3": iso3})[col] = float(val)
     df = pd.DataFrame(out.values())
     df["wave"] = "W3"
-    df.to_csv("data/raw/gswa_w3.csv", index=False)
+    df.to_csv("data/processed/wfh_w3_gswa.csv", index=False)
     print(f"W3: {len(df)} countries")
     return df
 

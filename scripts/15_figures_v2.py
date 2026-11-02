@@ -15,7 +15,7 @@ WAVE_LABEL = {1: "W1 (Jul-Aug 2021)", 2: "W2 (Jan-Feb 2022)", 3: "W3 (Apr-May 20
 def fig_waves():
     micro = pd.read_csv("data/processed/gswa_micro_country_wave.csv").rename(
         columns={"wfh_actual": "actual", "wfh_employer_plan": "plan"})
-    w3 = pd.read_csv("data/raw/gswa_w3.csv").rename(
+    w3 = pd.read_csv("data/processed/wfh_w3_gswa.csv").rename(
         columns={"wfh_actual": "actual", "wfh_employer_plan": "plan"})
     w3["wave"] = 3
     cw = pd.concat([micro[["iso3", "wave", "actual", "plan"]],

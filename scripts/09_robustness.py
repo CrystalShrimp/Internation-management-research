@@ -96,7 +96,7 @@ def robustness_table(d):
     rows.append(_row("(7) Placebo: pre-trend 2022H2 vs 2022H1", td, m, x="fake_plan_ij"))
 
     # 8. lagged wave: W1W2 plan LEVELS -> post-2023 collaboration growth (timing placebo)
-    w12 = pd.read_csv("data/raw/gswa_w1w2.csv").set_index("iso3")
+    w12 = pd.read_csv("data/raw/archive/wfh_w1w2_nber_table.csv").set_index("iso3")
     d3 = d.copy()
     for s in ["o", "d"]:
         d3[f"plan12_{s}"] = d3[f"iso3_{s}"].map(w12.wfh_employer_plan)

@@ -37,8 +37,8 @@ Gravity, World Bank WDI/WGI as controls.
 ## Pipeline
 
 Registered data (user-obtained, not redistributable in this repo):
-- `data/raw/gswa_micro/` — WFH Research replication file (G-SWA.dta)
-- `data/raw/ewcs/` — UKDS SN 9026 (EWCTS 2021 Stata)
+- `data/raw/remote_work/wfh_w1w2_micro_gswa/` — WFH Research replication file (G-SWA.dta)
+- `data/raw/eu_robustness/telework_ewcs_ukds/` — UKDS SN 9026 (EWCTS 2021 Stata)
 
 ```
 # public data

@@ -23,9 +23,9 @@ CONTROLS = ["ln_dev_o", "ln_dev_d", "ln_gdp_o", "ln_gdp_d", "broadband_o", "broa
 
 
 def build_eu_panel():
-    wbc = pd.read_csv("data/raw/wb_countries.csv")
+    wbc = pd.read_csv("data/raw/controls/country_codes_worldbank.csv")
     iso2_to_iso3 = dict(zip(wbc.iso2, wbc.iso3))
-    es = pd.read_csv("data/raw/eurostat_wfh_clean.csv")
+    es = pd.read_csv("data/raw/archive/telework_eurostat_clean.csv")
     es = es[es.geo.isin(GEO_TO_ISO2) & es.year.between(2019, 2024)]
     es["iso3"] = es.geo.map(GEO_TO_ISO2).map(iso2_to_iso3)
     es = es.dropna(subset=["iso3", "wfh_ever_pct"])
@@ -33,7 +33,7 @@ def build_eu_panel():
 
     countries = sorted(es.iso3.unique())
     # DV: annual collaborators from GitHub (quarterly sum)
-    ec = pd.read_csv("data/raw/economy_collaborators.csv").dropna(subset=["source", "destination"])
+    ec = pd.read_csv("data/raw/dependent/collaborators_github.csv").dropna(subset=["source", "destination"])
     ec = ec[~ec.source.isin(["EU"]) & ~ec.destination.isin(["EU"])]
     ec["iso3_o"] = ec.source.map(iso2_to_iso3)
     ec["iso3_d"] = ec.destination.map(iso2_to_iso3)
@@ -60,7 +60,7 @@ def build_eu_panel():
     panel = panel.merge(esr_d, on=["iso3_d", "year"], how="left")
     panel = panel.dropna(subset=["remote_o", "remote_d"])  # need both endpoints' WFH
 
-    wdi = pd.read_csv("data/raw/worldbank_wgi_wdi.csv")
+    wdi = pd.read_csv("data/raw/controls/macro_wdi_worldbank.csv")
     wdi["ln_gdp"] = np.log(wdi.gdp_const2015usd)
     wdi["ln_gdppc"] = np.log(wdi.gdppc_const2015usd)
     wdi = wdi[["iso3", "year", "ln_gdp", "ln_gdppc", "broadband_per100"]]
@@ -71,7 +71,7 @@ def build_eu_panel():
                                 "broadband_per100": f"broadband_{s}"}),
             on=[f"iso3_{s}", "year"], how="left")
 
-    dev = pd.read_csv("data/raw/developers.csv").dropna(subset=["iso2_code"])
+    dev = pd.read_csv("data/raw/controls/developers_github.csv").dropna(subset=["iso2_code"])
     dev["iso3"] = dev.iso2_code.map(iso2_to_iso3)
     dev_ann = dev.groupby(["iso3", "year"], as_index=False).developers.mean()
     for s in ["o", "d"]:
@@ -82,8 +82,8 @@ def build_eu_panel():
     panel["ln_dev_d"] = np.log(panel.developers_d)
 
     # distances (K-S) among panel countries
-    hof = pd.read_csv("data/raw/hofstede_clean.csv").set_index("iso3")
-    wgi = pd.read_csv("data/raw/wgi_clean.csv").set_index("iso3")
+    hof = pd.read_csv("data/processed/culture_dims_hofstede_iso3.csv").set_index("iso3")
+    wgi = pd.read_csv("data/processed/governance_wgi_clean.csv").set_index("iso3")
     cs = sorted(set(panel.iso3_o.unique()) & set(panel.iso3_d.unique()))
     zs_hof = (hof[HOF_DIMS] - hof[HOF_DIMS].mean()) / hof[HOF_DIMS].std(ddof=0)
     zs_wgi = (wgi[WGI_DIMS] - wgi[WGI_DIMS].mean()) / wgi[WGI_DIMS].std(ddof=0)
@@ -104,7 +104,7 @@ def build_eu_panel():
     dists["dist_z"] = dists[["cult_z", "inst_z"]].mean(axis=1)
     panel = panel.merge(dists, on=["iso3_o", "iso3_d"], how="left")
 
-    grav = pd.read_csv("data/raw/cepii_bilateral.csv")
+    grav = pd.read_csv("data/processed/gravity_cepii_bilateral.csv")
     panel = panel.merge(grav[["iso3_o", "iso3_d", "dist", "tzdiff", "comlang_off", "contig"]],
                         on=["iso3_o", "iso3_d"], how="left")
 

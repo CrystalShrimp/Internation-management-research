@@ -17,7 +17,7 @@ NAMES = {"AUS": "Australia", "CHN": "China", "DEU": "Germany", "FRA": "France",
 
 
 def main():
-    hof = pd.read_csv("data/raw/hofstede_clean.csv").set_index("iso3")
+    hof = pd.read_csv("data/processed/culture_dims_hofstede_iso3.csv").set_index("iso3")
     sub = hof.loc[[c for c in PANEL_A if c in hof.index], list(DIMS)]
     sub.to_csv("output/tables/tab_hofstede_dims_panelA.csv")
     print(sub.to_string())

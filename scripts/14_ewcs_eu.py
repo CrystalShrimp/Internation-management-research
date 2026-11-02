@@ -16,13 +16,13 @@ WGI_DIMS = ["wgi_va", "wgi_pv", "wgi_ge", "wgi_rq", "wgi_rl", "wgi_cc"]
 
 
 def build():
-    wbc = pd.read_csv("data/raw/wb_countries.csv")
+    wbc = pd.read_csv("data/raw/controls/country_codes_worldbank.csv")
     iso2_to_iso3 = dict(zip(wbc.iso2, wbc.iso3)) | {"XK": "XKX", "TW": "TWN"}
     tw = pd.read_csv("data/processed/ewcs_telework.csv")
     tw["iso3"] = tw.iso3  # already iso3
 
     countries = sorted(set(tw.iso3))
-    ec = pd.read_csv("data/raw/economy_collaborators.csv").dropna(subset=["source", "destination"])
+    ec = pd.read_csv("data/raw/dependent/collaborators_github.csv").dropna(subset=["source", "destination"])
     ec = ec[~ec.source.isin(["EU"]) & ~ec.destination.isin(["EU"])]
     ec["iso3_o"] = ec.source.map(iso2_to_iso3)
     ec["iso3_d"] = ec.destination.map(iso2_to_iso3)
@@ -37,11 +37,11 @@ def build():
     pre = ec[ec.t.isin(["2021Q1", "2021Q2"])].groupby(["iso3_o", "iso3_d"]).ln_collab.mean()
 
     # distances + gravity
-    hof = pd.read_csv("data/raw/hofstede_clean.csv").set_index("iso3")
-    wgi = pd.read_csv("data/raw/wgi_clean.csv").set_index("iso3")
+    hof = pd.read_csv("data/processed/culture_dims_hofstede_iso3.csv").set_index("iso3")
+    wgi = pd.read_csv("data/processed/governance_wgi_clean.csv").set_index("iso3")
     zs_hof = (hof[HOF_DIMS] - hof[HOF_DIMS].mean()) / hof[HOF_DIMS].std(ddof=0)
     zs_wgi = (wgi[WGI_DIMS] - wgi[WGI_DIMS].mean()) / wgi[WGI_DIMS].std(ddof=0)
-    grav = pd.read_csv("data/raw/cepii_bilateral.csv")
+    grav = pd.read_csv("data/processed/gravity_cepii_bilateral.csv")
 
     rows = []
     for i, j in itertools.product(countries, countries):

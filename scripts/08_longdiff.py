@@ -25,8 +25,8 @@ def longdiff_gswa():
          "comlang_off", "contig", "scaled_sci_2021"]]
     d = d.merge(base, on="pair")
 
-    w12 = pd.read_csv("data/raw/gswa_w1w2.csv").set_index("iso3")
-    w3 = pd.read_csv("data/raw/gswa_w3.csv").set_index("iso3")
+    w12 = pd.read_csv("data/raw/archive/wfh_w1w2_nber_table.csv").set_index("iso3")
+    w3 = pd.read_csv("data/processed/wfh_w3_gswa.csv").set_index("iso3")
     for s in ["o", "d"]:
         c = d[f"iso3_{s}"]
         d[f"d_plan_{s}"] = c.map(w3.wfh_employer_plan) - c.map(w12.wfh_employer_plan)

@@ -50,5 +50,5 @@ if __name__ == "__main__":
         out.append(df.set_index(["iso3", "year"]))
         print(f"{code}: {name}, rows={len(df)}")
     panel = pd.concat(out, axis=1).reset_index()
-    panel.to_csv("data/raw/worldbank_wgi_wdi.csv", index=False)
-    print("saved data/raw/worldbank_wgi_wdi.csv", panel.shape)
+    panel.to_csv("data/raw/controls/macro_wdi_worldbank.csv", index=False)
+    print("saved data/raw/controls/macro_wdi_worldbank.csv", panel.shape)

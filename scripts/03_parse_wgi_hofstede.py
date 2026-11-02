@@ -10,7 +10,7 @@ WGI_CODE_FIX = {"ADO": "AND", "ZAR": "COD", "ROM": "ROU", "TMP": "TLS", "KSV": "
 
 
 def parse_wgi():
-    wb = openpyxl.load_workbook("data/raw/wgi_dataset.xlsx", read_only=True, data_only=True)
+    wb = openpyxl.load_workbook("data/raw/distance_moderators/governance_wgi.xlsx", read_only=True, data_only=True)
     sheets = {
         "VoiceandAccountability": "wgi_va", "Political StabilityNoViolence": "wgi_pv",
         "GovernmentEffectiveness": "wgi_ge", "RegulatoryQuality": "wgi_rq",
@@ -42,7 +42,7 @@ def parse_wgi():
                     out[code]["wgi_year"] = y
                     break
     df = pd.DataFrame(out.values())
-    df.to_csv("data/raw/wgi_clean.csv", index=False)
+    df.to_csv("data/processed/governance_wgi_clean.csv", index=False)
     print("WGI:", df.shape, "latest year:", df.wgi_year.unique())
     return df
 
@@ -82,7 +82,7 @@ HOFSTEDE_NAME_TO_ISO3 = {
 
 
 def parse_hofstede():
-    df = pd.read_csv("data/raw/hofstede_6d.csv", sep=";")
+    df = pd.read_csv("data/raw/distance_moderators/culture_6dims_hofstede.csv", sep=";")
     dims = ["pdi", "idv", "mas", "uai", "ltowvs", "ivr"]
     rows = []
     for _, r in df.iterrows():
@@ -100,13 +100,13 @@ def parse_hofstede():
         vals["country"] = r["country"]
         rows.append(vals)
     hof = pd.DataFrame(rows)
-    hof.to_csv("data/raw/hofstede_clean.csv", index=False)
+    hof.to_csv("data/processed/culture_dims_hofstede_iso3.csv", index=False)
     print("Hofstede:", hof.shape, "complete 6-dim:", hof[dims].notna().all(axis=1).sum())
     return hof
 
 
 def parse_eurostat():
-    d = json.load(open("data/raw/eurostat_ehomp.json", encoding="utf-8"))
+    d = json.load(open("data/raw/archive/telework_eurostat_full.json", encoding="utf-8"))
     dims = d["dimension"]
     def idx_labels(dim):
         v = dims[dim]["category"]
@@ -139,13 +139,13 @@ def parse_eurostat():
     if "wfh_sometimes_pct" not in piv.columns:
         piv["wfh_sometimes_pct"] = np.nan
     piv["wfh_ever_pct"] = piv["wfh_usually_pct"].fillna(0) + piv["wfh_sometimes_pct"].fillna(0)
-    piv.to_csv("data/raw/eurostat_wfh_clean.csv", index=False)
+    piv.to_csv("data/raw/archive/telework_eurostat_clean.csv", index=False)
     print("Eurostat WFH:", piv.shape, "geo:", piv.geo.nunique())
     return piv
 
 
 def parse_cepii():
-    z = zipfile.ZipFile("data/raw/gravity_cepii.zip")
+    z = zipfile.ZipFile("data/raw/controls/gravity_cepii.zip")
     rows = []
     for chunk in pd.read_csv(z.open("Gravity_V202211.csv"), chunksize=500000, low_memory=False):
         c = chunk[chunk["year"].isin([2019, 2020, 2021])]
@@ -161,7 +161,7 @@ def parse_cepii():
             "comlang_off", "comlang_ethno", "comcol", "col_dep", "sibling", "tzdiff",
             "scaled_sci_2021"]
     df = df[keep].drop_duplicates(subset=["iso3_o", "iso3_d"])
-    df.to_csv("data/raw/cepii_bilateral.csv", index=False)
+    df.to_csv("data/processed/gravity_cepii_bilateral.csv", index=False)
     print("CEPII bilateral:", df.shape,
           "missing dist:", df.dist.isna().sum())
     return df

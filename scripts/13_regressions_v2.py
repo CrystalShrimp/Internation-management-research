@@ -80,7 +80,7 @@ def longdiff_v2():
     cw = pd.read_csv("data/processed/gswa_micro_country_wave.csv").rename(
         columns={"wfh_actual": "actual", "wfh_employer_plan": "plan",
                  "wfh_worker_desire": "desire"})
-    w3 = pd.read_csv("data/raw/gswa_w3.csv").rename(
+    w3 = pd.read_csv("data/processed/wfh_w3_gswa.csv").rename(
         columns={"wfh_actual": "actual", "wfh_employer_plan": "plan",
                  "wfh_worker_desire": "desire"})
     w3["wave"] = 3
