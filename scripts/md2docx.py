@@ -28,6 +28,10 @@ def convert(md_path, docx_path, base_dir):
     style = doc.styles["Normal"]
     style.font.name = "Times New Roman"
     style.font.size = Pt(11)
+    # East Asian font so Chinese text renders consistently
+    rpr = style.element.get_or_add_rPr()
+    rfonts = rpr.get_or_add_rFonts()
+    rfonts.set(docx.oxml.ns.qn("w:eastAsia"), "宋体")
     i = 0
     while i < len(lines):
         line = lines[i]
@@ -81,3 +85,4 @@ def convert(md_path, docx_path, base_dir):
 
 if __name__ == "__main__":
     convert("paper/paper.md", "paper/paper.docx", Path("paper"))
+    convert("paper/paper_cn.md", "paper/paper_cn.docx", Path("paper"))
