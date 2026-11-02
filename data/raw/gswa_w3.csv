@@ -1,0 +1,33 @@
+country,iso3,wfh_actual,wfh_employer_plan,wfh_worker_desire,wave
+Australia,AUS,1.27,1.57,2.23,W3
+Canada,CAN,1.67,1.84,2.5,W3
+New Zealand,NZL,1.01,1.37,2.28,W3
+UK,GBR,1.53,1.69,2.29,W3
+USA,USA,1.35,1.93,2.56,W3
+Austria,AUT,0.83,0.96,1.63,W3
+Denmark,DNK,0.64,0.72,1.15,W3
+Finland,FIN,0.97,0.95,1.73,W3
+France,FRA,0.56,0.72,1.4,W3
+Germany,DEU,1.04,1.19,1.83,W3
+Greece,GRC,0.52,0.65,1.78,W3
+Hungary,HUN,0.77,1.06,1.92,W3
+Italy,ITA,0.72,0.99,1.89,W3
+Netherlands,NLD,1.03,1.21,1.5,W3
+Norway,NOR,0.72,0.7,1.42,W3
+Poland,POL,0.74,1.07,1.72,W3
+Portugal,PRT,0.75,0.71,1.92,W3
+Romania,ROU,0.77,1.15,1.76,W3
+Spain,ESP,0.88,1.05,2.17,W3
+Sweden,SWE,0.9,0.88,1.69,W3
+Argentina,ARG,0.87,1.13,2.68,W3
+Brazil,BRA,0.91,1.16,2.37,W3
+Chile,CHL,0.97,1.35,2.49,W3
+Mexico,MEX,0.82,1.21,2.42,W3
+South Africa,ZAF,0.91,1.5,2.63,W3
+China,CHN,0.8,1.09,1.89,W3
+Israel,ISR,0.69,0.77,1.84,W3
+Japan,JPN,0.54,1.23,1.44,W3
+Malaysia,MYS,0.6,1.37,2.24,W3
+Singapore,SGP,0.91,1.52,2.44,W3
+South Korea,KOR,0.42,0.55,1.19,W3
+Taiwan,TWN,0.66,0.5,1.57,W3

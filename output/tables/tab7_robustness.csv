@@ -1,0 +1,9 @@
+Specification,d_plan_ij,Interaction (remote x dist),N,R2,fake_plan_ij,plan12_ij
+(1) Main: planned WFH,-0.066 (0.107),-0.120** (0.055),375,0.026,,
+(2) Desired WFH days,,,375,0.107,,
+(3) Actual WFH days,,,375,0.047,,
+(4) Winsorised dv,-0.065 (0.094),-0.103** (0.048),375,0.029,,
+(5) Drop US pairs,-0.050 (0.161),-0.150** (0.069),335,0.029,,
+(6) Drop China pairs,0.004 (0.104),0.077 (0.054),343,0.012,,
+(7) Placebo: pre-trend 2022H2 vs 2022H1,,-0.143*** (0.048),366,0.034,0.086 (0.096),
+(8) Level of planned WFH (W1/W2),,-0.069** (0.030),375,0.034,,0.204* (0.122)

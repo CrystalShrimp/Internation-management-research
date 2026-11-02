@@ -1,0 +1,19 @@
+Variable,N,Mean,Std.Dev.,Min,p25,Median,p75,Max
+Cross-border collaborators (count),3622,10277.95,37393.32,101.0,529.0,1440.0,4685.75,437140.0
+ln(1 + collaborators),3622,7.48,1.68,4.62,6.27,7.27,8.45,12.99
+"Remote-work intensity, origin (WFH days/wk)",3622,1.46,0.58,0.42,1.0,1.4,1.7,2.9
+"Remote-work intensity, destination (WFH days/wk)",3622,1.46,0.59,0.42,1.0,1.4,1.7,2.9
+"Remote-work intensity, pair mean",3622,1.46,0.48,0.48,1.1,1.5,1.8,2.7
+"Cultural distance (Kogut-Singh, Hofstede)",3622,1.94,1.13,0.02,1.17,1.75,2.61,6.33
+"Institutional distance (Kogut-Singh, WGI)",3622,0.86,1.0,0.01,0.12,0.52,1.15,4.67
+Composite distance (z),3622,-0.04,0.78,-1.26,-0.58,-0.18,0.4,2.85
+"ln GDP, origin",3466,28.06,1.23,25.75,27.07,28.21,28.82,30.73
+"ln GDP, destination",3491,28.09,1.23,25.75,27.1,28.21,28.82,30.73
+"ln GDP p.c., origin",3466,10.42,0.59,9.08,9.95,10.57,10.84,11.13
+"Broadband per 100, origin",3466,36.37,8.64,10.89,31.19,37.49,42.92,48.67
+ln geodesic distance,3622,8.4,1.1,5.37,7.3,8.89,9.2,9.84
+Time-zone difference (hrs),3622,4.82,4.26,0.0,1.0,6.0,8.0,15.0
+Common official language,3622,0.1,0.3,0.0,0.0,0.0,0.0,1.0
+Contiguity,3622,0.05,0.22,0.0,0.0,0.0,0.0,1.0
+"GitHub developers, origin",3622,2579175.46,3934133.69,170670.0,765847.0,1271802.0,2417044.0,21077020.0
+"GitHub developers, destination",3622,2639357.22,3961994.33,170670.0,784623.0,1292102.0,2471377.0,21077020.0

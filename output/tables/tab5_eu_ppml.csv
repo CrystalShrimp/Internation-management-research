@@ -1,0 +1,27 @@
+,,collaborators,collaborators
+,,(1),(2)
+coef,remote_o,"-0.009** 
+ (0.003)","-0.004 
+ (0.003)"
+coef,remote_d,"-0.006* 
+ (0.003)","-0.001 
+ (0.003)"
+coef,remote_x_dist_z,"0.004 
+ (0.003)","0.001 
+ (0.003)"
+coef,ln_dev_o,,"1.076* 
+ (0.517)"
+coef,ln_dev_d,,"1.559*** 
+ (0.456)"
+coef,ln_gdp_o,,"1.234* 
+ (0.488)"
+coef,ln_gdp_d,,"0.646 
+ (0.522)"
+coef,broadband_o,,"0.014 
+ (0.016)"
+coef,broadband_d,,"0.016 
+ (0.014)"
+fe,pair,-,-
+fe,year,-,-
+stats,Observations,"3,823","3,768"
+stats,R²,-,-

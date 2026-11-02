@@ -1,0 +1,15 @@
+# Registered microdata - not for redistribution (see README for how to obtain)
+# EWCS/EWCTS 2021: UK Data Service SN 9026, access conditions prohibit redistribution
+data/raw/ewcs/
+# G-SWA registered download (WFH Research); derived aggregates in data/processed are included
+data/raw/gswa_micro/
+
+# Too large for GitHub / re-downloadable via documented commands
+data/raw/gravity_cepii.zip
+data/raw/eurostat_ehomp.json
+
+# scratch
+tmp/
+__pycache__/
+*.pyc
+.claude/

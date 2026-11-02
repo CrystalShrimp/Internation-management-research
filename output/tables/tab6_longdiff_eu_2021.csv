@@ -1,0 +1,26 @@
+,,d_ln_collab,d_ln_collab
+,,(1),(2)
+coef,d_remote_o,"0.021 
+ (0.018)","0.014 
+ (0.020)"
+coef,d_remote_d,"0.052** 
+ (0.017)","0.045* 
+ (0.018)"
+coef,remote_x_dist_z,"-0.001 
+ (0.013)",
+coef,ln_dist,"-1.081*** 
+ (0.278)","-0.830** 
+ (0.316)"
+coef,tzdiff,"-0.319 
+ (0.329)","-0.206 
+ (0.354)"
+coef,comlang_off,"1.493* 
+ (0.719)","1.721* 
+ (0.802)"
+coef,remote_x_cult_dist,,"0.009 
+ (0.015)"
+coef,Intercept,"11.985*** 
+ (1.832)","10.561*** 
+ (2.128)"
+stats,Observations,870,702
+stats,R²,0.071,0.052
