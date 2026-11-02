@@ -72,6 +72,19 @@ ln(1+Collab_ijt) = β₁Remote_it + β₂Remote_jt + β₃(Remote_ijt × DistCul
 
 with pair fixed effects μ_ij, quarter fixed effects λ_t, standard errors clustered by pair, and PPML as the multiplicative counterpart. **Long difference.** Δln Collab_ij (2023Q2–Q4 mean minus 2022 mean) on ΔRemote by wave interacted with cultural distance, gravity controls, pair-clustered SEs. **Event study.** quarter dummies × pair-level Δplanned-remote, testing pre-trends ahead of both break dates. **EU robustness.** pair-level gravity regressions with EWCS telework (levels 2022–2023 and growth 2021→2023).
 
+### 4.1 Choice of control variables
+
+The covariate list is deliberately short because the fixed-effect structure already does the heavy lifting: pair fixed effects absorb *all* time-invariant bilateral traits (geography, language, time zones, colonial and historical ties, and the level of cultural distance itself), and time fixed effects absorb global shocks (platform growth, the diffusion of AI coding tools, macro cycles). Controls therefore target only channels that (i) vary within pairs over time and (ii) correlate with the timing of remote-work adoption:
+
+| Control | Source | Omitted-variable channel addressed |
+|---|---|---|
+| ln developers, origin & destination | Innovation Graph | Gravity "mass" in the GitHub context: collaborators are drawn from the active developer population; omitting it attributes developer-base growth to remote work. With it controlled, β speaks to the per-developer *propensity* to collaborate across borders — the course question itself |
+| ln GDP, origin & destination | WDI | Standard gravity mass term; richer economies adopted remote work faster, so the treatment correlates with development level |
+| Broadband penetration | WDI | Digital infrastructure is a common antecedent of remote work and OSS participation — a classic "cause of the treatment" |
+| ln distance, time-zone difference, common language, contiguity | CEPII | Bilateral frictions (review turnaround, communication cost, face-to-face opportunities). Time-invariant, hence absorbed by pair FE in the panel; they enter only the pair-level long-difference and EWCS regressions, which have no pair FE — the two control strategies are internally consistent |
+
+Two boundary issues are handled transparently. First, the developer stock is simultaneously a confounder and a *mediator* (remote work may expand participation); we therefore report specifications with and without it and read the attenuation of the interaction when it is included (−0.842 → −0.473) as a partial mediation margin rather than pure robustness. Second, pandemic-lockdown confounding is addressed by design rather than by adding a stringency control: the treatment is employer-*planned* post-pandemic WFH days (structural adoption) rather than survey-week actual days; the two-break event study shows flat pre-trends; and the 2021→2022 placebo is null.
+
 ---
 
 ## 5. Results
